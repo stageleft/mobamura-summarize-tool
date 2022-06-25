@@ -1,0 +1,30 @@
+{
+    "type": "object",
+    "required": ["characteres"],
+    "properties": {
+        "title": {
+            "type":"string"
+        },
+        "characteres": {
+            "type":"array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "alias": {
+            "type":"array",
+            "items": {
+                "type": "object",
+                "required": ["cn", "link"],
+                "properties": {
+                    "cn": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
