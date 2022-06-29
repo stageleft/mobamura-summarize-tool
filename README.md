@@ -62,11 +62,13 @@ https://www.jsonschemavalidator.net/
    1. 出力形式はCSVとする。
 1. 出力δをダウンロードあるいはHTML出力する。（コーディングしやすさで決める）
 
-### 設計の制限
+### 言語
 
-メイン処理は index.html に記載するが、処理コールとファイル操作以外の機能は持たない。
+ruby言語のスクリプトとする。
 
-処理は可能な限り実行ファイルを分ける。各々の実行ファイルは、node.js環境下で jest のカバレッジ１００％となること。
+rubygems にて、以下のモジュールを入れること。
+
+gem install nokogiri （鋸；HTML/XML Parser https://nokogiri.org/）
 
 ### 使い方
 
