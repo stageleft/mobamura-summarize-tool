@@ -72,4 +72,4 @@ gem install nokogiri （鋸；HTML/XML Parser https://nokogiri.org/）
 
 ### 使い方
 
-index.html を開けばなんとかなるようにする。
+ruby index.rb "some character_list.json" > result.csv
