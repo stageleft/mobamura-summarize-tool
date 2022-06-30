@@ -37,12 +37,16 @@ class GetPlayerList
         ret_value = {};
 
         l = JSON.parse(cnlist)
-        l["characteres"].each{|e|
-            ret_value[e] = parseResultQueryByCn(queryByCn(e))
-        };
-        l["alias"].each{|e|
-            ret_value[e["cn"]] = parseResultQueryByCn(queryByCn(e["cn"]));
-        };
+        if (l["characteres"] != nil) then
+            l["characteres"].each{|e|
+                ret_value[e] = parseResultQueryByCn(queryByCn(e))
+            };
+        end
+        if (l["alias"] != nil) then
+            l["alias"].each{|e|
+                ret_value[e["cn"]] = parseResultQueryByCn(queryByCn(e["cn"]));
+            };
+        end
 
         ret_value
     end
