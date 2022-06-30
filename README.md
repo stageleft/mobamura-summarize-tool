@@ -8,7 +8,6 @@
 
 ウドP提供の下記ツールをAPIとして用いている。
 http://mobajinro.s178.xrea.com/mobajinrolog/result.php
-http://mobajinro.s178.xrea.com/mobajinrolog/player/index.html
 
 仕様の制限として、同一CNの別キャラがカウントに入ってしまう。
 例１）クラリス（グラブル）
@@ -70,4 +69,19 @@ gem install nokogiri （鋸；HTML/XML Parser https://nokogiri.org/）
 
 ### 使い方
 
-ruby index.rb "some character_list.json" > result.csv
+ruby index.rb some_character_list.json output.csv
+
+some_character_list.json output.csv は任意のファイル名。
+output.csv は省略可能（本当に output.csv に出力される。
+
+実行コマンド列事例）
+ruby index.rb cinderella_cute.json cu.csv
+ruby index.rb cinderella_cool.json co.csv
+ruby index.rb cinderella_passion.json pa.csv
+ruby index.rb cinderella_another.json ano.csv
+ruby index.rb sidem.json sm.csv
+ruby index.rb million.json mi.csv
+ruby index.rb shinycolors.json sh.csv
+
+
+
