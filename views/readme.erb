@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+
+    <title>Mobamura Character-Player list tool README</title>
+    <link rel="shortcut icon" href="/image/favicon.ico">
+</head>
+
+<body>
+    <h1>モバ村・キャラクターごと使用者・使用回数抽出ツール README</h1>
+    <h2>本ツールは何なのか</h2>
+    <p>
+    <a href="/">モバ村・キャラクターごと使用者・使用回数抽出ツール</a>とは、
+    <a href="https://w.atwiki.jp/mobamura/pages/75.html">モバ村wiki・ アイドル代表プレイヤー</a>ページの情報更新をサポートすべく、
+    <a href="http://mobajinro.s178.xrea.com/mobajinrolog/result.php">ウドツール（戦績）</a>にて管理している情報を自動取得・再集計するツールとして、
+    <a href="https://twitter.com/elderalliance">ステージレフト</a>により開発されました。
+    </p>
+    <h2>ボタンについて</h2>
+    <p>
+    ボタンを押してから暫く待つと、下部の「結果」に集計結果が出ます。ボタンを押してから集計結果が出るまでは、ボタンを押し直せないようになっています。
+    各ボタンの設定について、「アイドル一覧」と「別名」があり、別名の場合は指定先のアイドルに読み替えて集計します。
+    詳細な設定は以下の通りです。
+    </p>
+    <ul>
+        <li><a href="https://github.com/stageleft/mobamura-summarize-tool/blob/main/data/cinderella_cute.json">シンデレラガールズ（Cu属性）</a></li>
+        <li><a href="https://github.com/stageleft/mobamura-summarize-tool/blob/main/data/cinderella_cool.json">シンデレラガールズ（Co属性）</a></li>
+        <li><a href="https://github.com/stageleft/mobamura-summarize-tool/blob/main/data/cinderella_passion.json">シンデレラガールズ（Pa属性）</a></li>
+        <li><a href="https://github.com/stageleft/mobamura-summarize-tool/blob/main/data/cinderella_another.json">シンデレラガールズ（その他）</a></li>
+        <li><a href="https://github.com/stageleft/mobamura-summarize-tool/blob/main/data/sidem.json">ディアリースターズ、および、SideM</a></li>
+        <li><a href="https://github.com/stageleft/mobamura-summarize-tool/blob/main/data/shinycolors.json">シャイニーカラーズ</a></li>
+        <li><a href="https://github.com/stageleft/mobamura-summarize-tool/blob/main/data/million.json">ミリオンライブ、その他</a></li>
+    </ul>
+    <h2>結果について</h2>
+    <p>
+    結果は、上記のボタンで入れ替える以外の編集方法はありません。
+    結果に関して、結果ファイルをCSVファイルとしてダウンロードする、結果をフィルタして見るポイントを絞る（および、フィルタした結果を削除して最初の表示に戻す）、の２機能を準備しています。
+    なお、CSVファイルについて、Microsoft Excelで開くことができません。エディタなどで、文字エンコーディングを "UTF-8" → "Shift JIS" に変更してからファイルを開いてください。
+    </p>
+    <p>
+    仕様上避けられない事項として、同一CNの別キャラがカウントに入ってしまう仕様となります。
+    （例１）クラリス（グラブル） → クラリス（シンデレラガールズ）としてカウント、（例２）アスラン（ガンダム） → アスラン（アイマスSideM）としてカウント、等。
+    </p>
+    <h2>その他重要事項</h2>
+    <h2>プラットフォームについて</h2>
+    <p>
+    本ツールは、Docker Hub、および、Microsoft Azure の App Service の無償プランを用いて、サービスを提供しています。
+    </p>
+    <p>
+    特に、 Azure の App Service が無償プラン（Freeプラン、F1）であるため、一切の動作保証がない点ご注意願います。
+    </p>
+    <h2>連携サービスについて</h2>
+    <p>
+    本ツールは、ツール説明のとおおり、もととなる情報をウドツール（戦績）に依っています。
+    何らかの理由でウドツール（戦績）が動作できない状態となった場合、あるいは、ウドツール（戦績）へのアクセスを何らかの手段で禁止された場合、本ツールは一切動作しない状況となります。
+    </p>
+    <h2>補償事項について</h2>
+    <p>
+    本ツールの利用、あるいは、本ツールを利用できない状態の発生によりユーザ・関係者等に与えた損害等について、<a href="https://twitter.com/elderalliance">ステージレフト</a>は一切を補償いたしません。
+    </p>
+    <h2>フリーソフトについて</h2>
+    <p>
+    本ツールは、以下のフリーソフトを利用しています。また、いずれのフリーソフトも一切の改変を行わず用いています。
+    </p>
+    <ul>
+        <li><a href="https://www.docker.com/">Docker</a>
+            <ul>
+                <li>サービスリリース・改善時、<a href="https://docs.docker.jp/engine/installation/linux/docker-ce/ubuntu.html">Docker CE（Ubuntu Linux版）</a> を Apache License, Version 2.0 に基づき利用）</li>
+                <li>サービス提供・運用時、バージョン・ライセンス等は Azure App Service の仕様と Microsoft の責による。</li>
+            </ul>
+        </li>
+        <li><a href="https://www.ruby-lang.org/ja/">Ruby</a>（サービスリリース・改善時の最新版、Rubyライセンスに基づき利用）
+            <ul>
+                <li><a href="http://sinatrarb.com/intro-ja.html">Sinatra</a>（サービスリリース・改善時の最新版、MITライセンスに基づき利用）</li>
+                <li><a href="https://github.com/macournoyer/thin">Thin</a>（サービスリリース・改善時の最新版、Rubyライセンスに基づき利用）</li>
+                <li><a href="https://nokogiri.org/">nokogiri</a>（サービスリリース・改善時の最新版、MITライセンスに基づき利用）</li>
+            </ul>
+        </li>
+        <li><a href="http://tabulator.info/">Tabulator</a>（利用時の最新版、MITライセンスに基づき利用）</li>
+    </ul>
+    <h2>本サービスの利用ライセンスについて</h2>
+    <p>
+    本サービスは、利用に伴うライセンス料等をユーザに求めることはありません。ただし、広告バナー表示等、ユーザのネットワーク・コンピューティングリソースを、無許諾に求めることがあります。
+    </p>
+    <h2>本ツールのライセンスについて</h2>
+    <p>
+    本ツールは、<a href="https://github.com/stageleft/mobamura-summarize-tool">Githubにてソースコードを公開しています</a>。MPL 2.0 に基づき、利用・改変等を実施いただくことが可能です。
+    </p>
+</body>
+</html>

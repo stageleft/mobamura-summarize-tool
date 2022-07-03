@@ -5,6 +5,9 @@ require_relative './api/result'
 get '/' do
     erb :index
 end
+get '/caution/' do
+    erb :readme
+end
 
 # get JSON data from API /result/?type=jsonfile
 get '/result/:type' do

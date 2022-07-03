@@ -1,25 +1,16 @@
-# mobamura-summarize-tool
-（自分用）わかめてモバマス村・集計ツール群
-
-## cn2players
+# mobamura-tool
+（自分用）わかめてモバマス村・集計ツール
 
 アイドルマスターのキャラクター（以下、アイドル）をCNに用いているプレイヤーの一覧および、
 使用回数を集計したもの。
 
-ウドP提供の下記ツールをAPIとして用いている。
-http://mobajinro.s178.xrea.com/mobajinrolog/result.php
-
-仕様の制限として、同一CNの別キャラがカウントに入ってしまう。
-例１）クラリス（グラブル）
-例２）アスラン（ガンダム）
-
-## cn2playersの使い方
-
 https://mobamura-summarize-tool.azurewebsites.net/
 
-にアクセスして、取りたいリストのボタンを押す。以上。
+にアクセスして利用する。
 
-## cn2playersの仕様など詳細
+仕様や重要事項などは、上記ツールより、「はじめに、こちらのリンクをお読みください」を参照すること。
+
+## 開発・運用にかかる参考情報
 
 ### キャラクター名リスト・データ表記法
 
@@ -62,47 +53,27 @@ https://www.jsonschemavalidator.net/
    1. 村のプレイヤー名がある場合は、村のプレイヤー名を全体プレイヤー名として扱う。
    1. 村のプレイヤー名がない場合（「-」の場合）は、トリップを全体プレイヤー名として扱う。
    1. 出力形式はJSONとする。
-1. 出力γを形式変換し、「アイドル」と「プレイヤー（プレイヤー名）」と「回数」のリストを作成する。（出力δ）
-   1. アイドルごと、回数の多い順にリスト化する。
-   1. 出力形式はCSVとする。
-1. 出力δをダウンロードあるいはHTML出力する。（コーディングしやすさで決める）
+1. 出力γを形式変換し、「アイドル」と「プレイヤー（プレイヤー名）」と「回数」と「順位」のリストを作成する。（出力δ）
+   1. 出力形式は、配列とする。
+1. 出力δを、フリーソフト Tabulator の機能を用いてHTML出力する。同ツールは、HTMLの書式によってそのままCSVファイルのダウンロード機能を持つ。
 
-### 言語
+### 言語、開発プラットフォーム
 
-ruby言語のスクリプトとする。
+ruby言語のスクリプトにて、小規模なWebサービスを構築する。スクリプト・WebサービスはDocker CE にてコンテナを作成・提供する。
+rubygems にて、sinatra, thin, nokogiri のモジュールを入れる。
 
-rubygems にて、以下のモジュールを入れること。
-
-gem install nokogiri （鋸；HTML/XML Parser https://nokogiri.org/）
-
-### 使い方
-
-## 開発メモ
-
-### コマンド直接実行
+### （開発専用）コマンドラインによる実行
 
 ruby index.rb some_character_list.json output.csv
 
 some_character_list.json output.csv は任意のファイル名。
 output.csv は省略可能（本当に output.csv に出力される。
 
-実行コマンド列事例）
-ruby index.rb cinderella_cute.json cu.csv
-ruby index.rb cinderella_cool.json co.csv
-ruby index.rb cinderella_passion.json pa.csv
-ruby index.rb cinderella_another.json ano.csv
-ruby index.rb sidem.json sm.csv
-ruby index.rb million.json mi.csv
-ruby index.rb shinycolors.json sh.csv
+### （開発専用）ローカル sinatra による実行
 
-### ローカル webrick
-
-apt install ruby
-gem install sinatra
-gem install nokogiri
 ruby myapp.rb -p 80
 
-### ローカル docker
+### （開発専用）ローカル docker-CE による実行
 
 docker build . -t mobamura-tool:latest
 docker run --rm -it mobamura-tool bash
@@ -120,11 +91,3 @@ docker tag mobamura-tool:latest shogosugano/mobamura-tool:latest
 docker push shogosugano/mobamura-tool:latest
 
 * azure App Service の再起動（docker hub -> azure は設定済み）
-
-## OSSアプリ
-
-ruby
-ruby sinatra
-ruby nokogiri
-
-tabulator
