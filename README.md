@@ -13,6 +13,14 @@ http://mobajinro.s178.xrea.com/mobajinrolog/result.php
 例１）クラリス（グラブル）
 例２）アスラン（ガンダム）
 
+## cn2playersの使い方
+
+https://mobamura-summarize-tool.azurewebsites.net/
+
+にアクセスして、取りたいリストのボタンを押す。以上。
+
+## cn2playersの仕様など詳細
+
 ### キャラクター名リスト・データ表記法
 
 本ツールは、内部データとして、キャラクター名リスト、および、（必要に応じて）別名一覧を持つ。
@@ -103,6 +111,15 @@ docker run --name mobamura-tool -p 80:80 mobamura-tool ; docker rm mobamura-tool
 
 docker run -d --name mobamura-tool -p 127.0.0.1:80:80 --restart=always mobamura-tool
 docker stop mobamura-tool && docker rm mobamura-tool
+
+### docker コンテナをサービスデプロイ
+
+* docker hub （プライベートリポジトリ）へのアップロード
+
+docker tag mobamura-tool:latest shogosugano/mobamura-tool:latest
+docker push shogosugano/mobamura-tool:latest
+
+* azure App Service の再起動（docker hub -> azure は設定済み）
 
 ## OSSアプリ
 
