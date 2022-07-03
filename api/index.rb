@@ -1,5 +1,5 @@
-require './get_player_list'
-require './calc_play_count'
+require_relative './get_player_list'
+require_relative './calc_play_count'
 
 require 'csv'
 

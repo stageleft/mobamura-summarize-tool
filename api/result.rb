@@ -1,7 +1,6 @@
-require './get_player_list'
-require './calc_play_count'
-
 require 'json'
+require_relative './get_player_list'
+require_relative './calc_play_count'
 
 class GetResult
     def initialize
@@ -26,7 +25,7 @@ class GetResult
             }
         }
 
-        JSON.stringify(tabledata)
+        JSON.generate(tabledata)
     end
 end
 

@@ -69,6 +69,10 @@ gem install nokogiri （鋸；HTML/XML Parser https://nokogiri.org/）
 
 ### 使い方
 
+## 開発メモ
+
+### コマンド直接実行
+
 ruby index.rb some_character_list.json output.csv
 
 some_character_list.json output.csv は任意のファイル名。
@@ -83,5 +87,27 @@ ruby index.rb sidem.json sm.csv
 ruby index.rb million.json mi.csv
 ruby index.rb shinycolors.json sh.csv
 
+### ローカル webrick
 
+apt install ruby
+gem install sinatra
+gem install nokogiri
+ruby myapp.rb -p 80
 
+### ローカル docker
+
+docker build . -t mobamura-tool:latest
+docker run --rm -it mobamura-tool bash
+
+docker run --name mobamura-tool -p 80:80 mobamura-tool ; docker rm mobamura-tool
+
+docker run -d --name mobamura-tool -p 127.0.0.1:80:80 --restart=always mobamura-tool
+docker stop mobamura-tool && docker rm mobamura-tool
+
+## OSSアプリ
+
+ruby
+ruby sinatra
+ruby nokogiri
+
+tabulator

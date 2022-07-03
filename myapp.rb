@@ -1,9 +1,9 @@
 require 'sinatra'
-require 'api/result.rb'
+require_relative './api/result'
 
 # show html page
 get '/' do
-    'Hello world!'
+    erb :index
 end
 
 # get JSON data from API /result/?type=jsonfile
