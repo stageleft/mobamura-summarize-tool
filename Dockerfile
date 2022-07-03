@@ -3,7 +3,7 @@ FROM ruby:latest
 RUN gem install thin sinatra
 
 COPY ui ./ui
-RUN cd ./ui && npm install
+COPY tabulator-master.zip ./ui
 
 COPY api ./api
 COPY myapp.rb .
