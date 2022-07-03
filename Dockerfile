@@ -8,6 +8,8 @@ COPY views ./views
 COPY api ./api
 COPY myapp.rb .
 
+COPY data .
+
 EXPOSE 80
 
-CMD ["ruby", "myapp.rb", "-p", "80"]
+CMD ["ruby", "myapp.rb", "-o", "0.0.0.0", "-p", "80"]
