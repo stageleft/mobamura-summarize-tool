@@ -2,42 +2,57 @@
 
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Mobamura Character-Player list tool</title>
-  <link rel="shortcut icon" href="/image/favicon.ico">
-  <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
-  <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+    <title>Mobamura Character-Player list tool</title>
+    <link rel="shortcut icon" href="/image/favicon.ico">
+    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 </head>
 
 <body>
     <h1>モバ村・キャラクターごと使用者・使用回数抽出ツール</h1>
     <h2>ボタン</h2>
-    <p>連携先ツールに負担がかかるため、連打は禁止とします</p>
-    <div>
-        <a href="javascript:void(0)" rel="nofollow" onClick="table.replaceData('/result/cinderella_cute.json')">シンデレラガールズ（Cu属性）</a>
-        <a href="javascript:void(0)" rel="nofollow" onClick="table.replaceData('/result/cinderella_cool.json')">シンデレラガールズ（Co属性）</a>
-        <a href="javascript:void(0)" rel="nofollow" onClick="table.replaceData('/result/cinderella_passion.json')">シンデレラガールズ（Pa属性）</a>
-        <a href="javascript:void(0)" rel="nofollow" onClick="table.replaceData('/result/cinderella_another.json')">シンデレラガールズ（その他）</a>
-    </div>
-    <div>
-        <a href="javascript:void(0)" rel="nofollow" onClick="table.replaceData('/result/sidem.json')">ディアリースターズ、および、SideM</a>
-        <a href="javascript:void(0)" rel="nofollow" onClick="table.replaceData('/result/shinycolors.json')">シャイニーカラーズ</a>
-        <a href="javascript:void(0)" rel="nofollow" onClick="table.replaceData('/result/million.json')">ミリオンライブ、その他</a>
+    <div id="button_list">
+        <div>
+        <button href="javascript:void(0)" rel="nofollow" onClick="replaceTableDataProc('/result/cinderella_cute.json')">シンデレラガールズ（Cu属性）</button>
+        <button href="javascript:void(0)" rel="nofollow" onClick="replaceTableDataProc('/result/cinderella_cool.json')">シンデレラガールズ（Co属性）</button>
+        <button href="javascript:void(0)" rel="nofollow" onClick="replaceTableDataProc('/result/cinderella_passion.json')">シンデレラガールズ（Pa属性）</button>
+        <button href="javascript:void(0)" rel="nofollow" onClick="replaceTableDataProc('/result/cinderella_another.json')">シンデレラガールズ（その他）</button>
+        </div>
+        <div>
+        <button href="javascript:void(0)" rel="nofollow" onClick="replaceTableDataProc('/result/sidem.json')">ディアリースターズ、および、SideM</button>
+        <button href="javascript:void(0)" rel="nofollow" onClick="replaceTableDataProc('/result/shinycolors.json')">シャイニーカラーズ</button>
+        <button href="javascript:void(0)" rel="nofollow" onClick="replaceTableDataProc('/result/million.json')">ミリオンライブ、その他</button>
+        </div>
     </div>
     <h2>結果</h2>
     <div id="result_table"></div>
     <script type="text/javascript">
-    var tabledata = [];
-    var table = new Tabulator("#result_table",{
-        data:tabledata,
-        columns:[
-            {title:"キャラクター名（CN）", field:"cn"},
-            {title:"プレイヤー名（HN or TRIP）", field:"player"},
-            {title:"村参加回数", field:"count"},
-            {title:"キャラクター使用回数順位", field:"rank"},
-        ]
-    });
-  </script>
+        var tabledata = [];
+        var table = new Tabulator("#result_table",{
+            data:tabledata,
+            columns:[
+                {title:"キャラクター名（CN）", field:"cn"},
+                {title:"プレイヤー名（HN or TRIP）", field:"player"},
+                {title:"村参加回数", field:"count"},
+                {title:"キャラクター使用回数順位", field:"rank"},
+            ]
+        });
+        function replaceTableDataProc(data_api) {
+            var collection = document.getElementById("button_list").getElementsByTagName("button");
+            for (var i = 0; i < collection.length; i++) {
+                console.log(collection[i]);
+                collection[i].toggleAttribute("disabled");
+            }
+            table.replaceData(data_api)
+            .then(function(){
+                for (var i = 0; i < collection.length; i++) {
+                    console.log(collection[i]);
+                    collection[i].toggleAttribute("disabled");
+                }
+            })
+        }
+    </script>
 </body>
 </html>
