@@ -9,5 +9,5 @@ end
 # get JSON data from API /result/?type=jsonfile
 get '/result/:type' do
     result = GetResult.new
-    result.get("#{params['type']}")
+    result.get("data/#{params['type']}")
 end
