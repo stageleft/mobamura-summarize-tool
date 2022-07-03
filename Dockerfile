@@ -2,9 +2,12 @@ FROM ruby:latest
 
 RUN gem install thin sinatra
 
-COPY api ./api
 COPY ui ./ui
+RUN cd ./ui && npm install
+
+COPY api ./api
 COPY myapp.rb .
+
 
 EXPOSE 4567
 
