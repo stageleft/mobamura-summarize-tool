@@ -8,7 +8,7 @@ COPY views ./views
 COPY api ./api
 COPY myapp.rb .
 
-COPY data .
+COPY data ./data
 
 EXPOSE 80
 
