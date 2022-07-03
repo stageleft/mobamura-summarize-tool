@@ -54,4 +54,33 @@ class CalcPlayCount
 
         ret_value
     end
+    # Hash -> Array
+    def sort_and_add_rank(raw_result)
+        ret_value = []
+
+        raw_result.each_pair{|cn, playerlist|
+            # create array
+            tmp1 = []
+            playerlist.each_pair{|player, count|
+                tmp1.push({"player":player, "count":count})
+            }
+            # sort
+            tmp2 = tmp1.sort_by{|a| a[:count]}
+            tmp2.reverse!
+            # add rank information
+            rank = 1
+            hold = 1
+            for i in 0...tmp2.size do
+                ret_value.push({"cn":cn, "player":tmp2[i][:player], "count":tmp2[i][:count], "rank": rank})
+                if (i < (tmp2.size - 1) and tmp2[i][:count] > tmp2[i+1][:count]) then
+                    rank = rank + hold
+                    hold = 1
+                else
+                    hold = hold + 1
+                end
+            end
+        }
+
+        ret_value
+    end
 end

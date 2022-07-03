@@ -18,11 +18,7 @@ class GetResult
         
             result = mjlcounter.count_play(jsondata, mjlcounter.set_player_name(raw_result))
 
-            result.each_key {|cn|
-                result[cn].each_key{|player|
-                    tabledata.push({"cn":cn, "player":player, "count":result[cn][player]})
-                }
-            }
+            tabledata = mjlcounter.sort_and_add_rank(result);
         }
 
         JSON.generate(tabledata)

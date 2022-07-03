@@ -22,12 +22,11 @@ File.open(ARGV[0]){|f|
 
     result = mjlcounter.count_play(jsondata, mjlcounter.set_player_name(raw_result))
 
+    listed_result = mjlcounter.sort_and_add_rank(result);
     CSV.open(outfile, 'w', :force_quotes => true) {|o|
-        o << ["cn", "player", "play_count"]
-        result.each_key {|cn|
-            result[cn].each_key{|player|
-                o << [cn, player, result[cn][player]]
-            }
+        o << ["cn", "player", "play_count", "count_rank"]
+        listed_result.each {|data|
+            o << [data[:cn],data[:player],data[:count],data[:rank]]
         }
     }
 }
