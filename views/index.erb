@@ -31,7 +31,7 @@
     </div>
     <h2>結果</h2>
     <div id="control_menu">
-        <button href="javascript:void(0)" rel="nofollow" onClick="table.download('csv','data.csv')">CSVダウンロード</button>
+        <button href="javascript:void(0)" rel="nofollow" onClick="table.download('csv','data.csv', {bom:true})">CSVダウンロード</button>
         <button href="javascript:void(0)" rel="nofollow"
          onClick="table.setHeaderFilterValue('cn','');table.setHeaderFilterValue('player','');table.setHeaderFilterValue('count','');table.setHeaderFilterValue('rank','')">フィルタ初期化</button>
     </div>
