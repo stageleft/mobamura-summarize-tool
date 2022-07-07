@@ -3,16 +3,18 @@ require 'json'
 class CalcPlayCount
     def initialize
     end
-    def set_player_name(queryresult)
+    def set_player_name(queryresult, triplist)
         ret_value = {}
 
         queryresult.each_key{|k|
             ret_value[k] = []
             queryresult[k].each{|l|
-                if l["HN"] == "-" then
-                    ret_value[k].push(l["trip"])
-                else
+                if triplist[l["trip"]] != nil then
+                    ret_value[k].push(triplist[l["trip"]])
+                elsif l["HN"] != "-" then
                     ret_value[k].push(l["HN"])
+                else
+                    ret_value[k].push(l["trip"])
                 end
             }
         }

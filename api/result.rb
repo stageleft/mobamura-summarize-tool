@@ -1,9 +1,17 @@
 require 'json'
 require_relative './get_player_list'
+require_relative './get_player_trip'
 require_relative './calc_play_count'
 
 class GetResult
     def initialize
+        mjlinstance = GetTripList.new
+        # set   priority 2  trip_table
+        @trip_table = mjlinstance.getFromFile('data/triplist.json')
+        # merge priority 1  trip_table
+        trip_table_by_udotool = mjlinstance.parseResultQueryByTrip(mjlinstance.query())
+
+        @trip_table.merge!(trip_table_by_udotool)
     end
     # Filename -> 
     def get(list_json)
@@ -19,7 +27,7 @@ class GetResult
             puts "[#{Time.now}]Query End."
 
             puts "[#{Time.now}]Calcurate Start. CN count = #{raw_result.size}"
-            result = mjlcounter.count_play(jsondata, mjlcounter.set_player_name(raw_result))
+            result = mjlcounter.count_play(jsondata, mjlcounter.set_player_name(raw_result, @trip_table))
 
             tabledata = mjlcounter.sort_and_add_rank(result);
             puts "[#{Time.now}]Calcurate End."
