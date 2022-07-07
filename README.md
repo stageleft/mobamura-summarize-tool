@@ -73,9 +73,13 @@ output.csv は省略可能（本当に output.csv に出力される。
 
 ruby myapp.rb -p 80
 
-### （開発専用）ローカル docker-CE による実行
+### ローカル docker-CE によるコンテナビルド
 
+service docker start
 docker build . -t mobamura-tool:latest
+docker tag mobamura-tool:latest shogosugano/mobamura-tool:latest
+
+### （開発専用）ローカル docker-CE による実行
 docker run --rm -it mobamura-tool bash
 
 docker run --name mobamura-tool -p 80:80 mobamura-tool ; docker rm mobamura-tool
@@ -87,7 +91,7 @@ docker stop mobamura-tool && docker rm mobamura-tool
 
 * docker hub （プライベートリポジトリ）へのアップロード
 
-docker tag mobamura-tool:latest shogosugano/mobamura-tool:latest
+docker login -u shogosugano -p <XXX>
 docker push shogosugano/mobamura-tool:latest
 
 * azure App Service の再起動（docker hub -> azure は設定済み）
