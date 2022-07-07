@@ -9,7 +9,9 @@ class GetResult
         # set   priority 2  trip_table
         @trip_table = mjlinstance.getFromFile('data/triplist.json')
         # merge priority 1  trip_table
-        @trip_table.merge(mjlinstance.parseResultQueryByTrip(mjlinstance.query()))
+        trip_table_by_udotool = mjlinstance.parseResultQueryByTrip(mjlinstance.query())
+
+        @trip_table.merge!(trip_table_by_udotool)
     end
     # Filename -> 
     def get(list_json)

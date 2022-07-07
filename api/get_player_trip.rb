@@ -17,12 +17,12 @@ class GetTripList
     end
     # HTML -> Array of Hash
     def parseResultQueryByTrip(body_json) # input : [{name:"name", trips:"◆,◆,..."}`}]
-        body_hash = eval(body_json)
+        body_array = JSON.parse(body_json)
         ret_hash = {}
 
-        body_hash.each{|pair|
-            pair_name = pair[:name];
-            pair_trip = pair[:trips].split(",");
+        body_array.each{|pair|
+            pair_name = pair["name"];
+            pair_trip = pair["trips"].split(",");
             pair_trip.each{|trip|
                 ret_hash[trip] = pair_name
             }
@@ -31,14 +31,13 @@ class GetTripList
         ret_hash
     end
     def getFromFile(list_json)
+        value = {}
         begin
             File.open(list_json){|f|
-                return eval(f.readlines.join(''))
+                value = JSON.parse(f.readlines.join(''))
             }
-        rescue => e
-            puts e
         ensure
-            return {}
+            return value
         end
     end
 end
