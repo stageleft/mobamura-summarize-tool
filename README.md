@@ -20,18 +20,21 @@ https://mobamura-summarize-tool.azurewebsites.net/
 記載したデータファイルのチェックは、以下を利用すること。
 https://www.jsonschemavalidator.net/
 
-データの種類は以下。
+データの種類は以下。原則として、 https://idollist.idolmaster-official.jp/search のアイドルを表示対象とする。
 
-* デレマス・Cu
-* デレマス・Co
-* デレマス・Pa
-* デレマス・他
-* ミリマス（オールスターズ１３名、スターリットシーズンのライバルキャラを含む）
-* SideM（DearlyStars２名を含む）
+* デレマス・Cu - https://imascg-slstage.boom-app.wiki/entry/idol-typelist より（モバ村Wikiの参照元と判断）
+* デレマス・Co - 同上
+* デレマス・Pa - 同上
+* デレマス・他 - 個別判断
+* ミリマス（オールスターズ１３名、スターリットシーズンのライバルキャラを含む） - https://idollist.idolmaster-official.jp/search より、「THE IDOLM@STER」「ミリオンライブ！」で各々フィルタ。つまりは、ここまで五十音順。その後、「その他」から未登録キャラを順次登録。
+* SideM（DearlyStars２名を含む） - https://idollist.idolmaster-official.jp/search より、「SideM」＆「その他」でフィルタ、。つまりは各カテゴリ五十音順。
 * シャニマス
 
-アイドル以外のキャラは、必要に応じて追加する。
-公式クリーチャーの取り扱いはT.B.D.。同人クリーチャーは取り込まない。
+https://idollist.idolmaster-official.jp/search 未登録のアイドル、アイドル以外のアイマスキャラは、必要に応じて上記の各項目に追加する。（原則、新規の「データの種類」は作成はしない）
+公式クリーチャーの取り扱いも上記に準ずる。同人クリーチャーは取り扱わない。
+声優を含む製作者は取り扱わない。
+
+※未登録のアイドル、アイドル以外のアイマスキャラ、公式クリーチャーでのモバマス村プレイ記録があったら教えてください。
 
 エイリアスについては、もとのキャラクター名が一意かつ明確である場合は対応する。（ほぼ後付対応にはる）
 アイマス公式の別名がある場合は、村の状況を確認せず一意かつ明確とみなす。
