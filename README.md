@@ -99,3 +99,12 @@ docker login -u shogosugano -p <XXX>
 docker push shogosugano/mobamura-tool:latest
 
 * azure App Service の再起動（docker hub -> azure は設定済み）
+
+### エンドポイントへの定期アクセスの実装
+
+アプリのスリープを防ぐため、一定間隔ごとに Health Check Path を呼び出す。
+手元で常時動作する Linux PC を準備し、以下の手順にて5分ごとのアクセスを実装する。
+
+$ crontab -e
+$ crontab -l
+*/5 * * * * curl 'https://mobamura-summarize-tool.azurewebsites.net/'
