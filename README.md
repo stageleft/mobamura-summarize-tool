@@ -80,16 +80,17 @@ ruby myapp.rb -p 80
 ### ローカル docker-CE によるコンテナビルド
 
 service docker start
-docker build . -t mobamura-tool:latest
-docker tag mobamura-tool:latest shogosugano/mobamura-tool:latest
+docker build . -t shogosugano/mobamura-tool:latest
 
 ### （開発専用）ローカル docker-CE による実行
-docker run --rm -it mobamura-tool bash
 
-docker run --name mobamura-tool -p 80:80 mobamura-tool ; docker rm mobamura-tool
+docker run --name mobamura-tool -p 80:80 shogosugano/mobamura-tool ; docker rm mobamura-tool
 
-docker run -d --name mobamura-tool -p 127.0.0.1:80:80 --restart=always mobamura-tool
+docker run -d --name mobamura-tool -p 127.0.0.1:80:80 --restart=always shogosugano/mobamura-tool
 docker stop mobamura-tool && docker rm mobamura-tool
+
+### （開発専用）ローカル docker-CE でのコンテナ調査
+docker run --rm -it shogosugano/mobamura-tool bash
 
 ### docker コンテナをサービスデプロイ
 
