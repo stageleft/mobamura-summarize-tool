@@ -64,7 +64,7 @@ https://idollist.idolmaster-official.jp/search 未登録のアイドル、アイ
 ### 言語、開発プラットフォーム
 
 ruby言語のスクリプトにて、小規模なWebサービスを構築する。スクリプト・WebサービスはDocker CE にてコンテナを作成・提供する。
-rubygems にて、sinatra, thin, nokogiri のモジュールを入れる。
+rubygems にて、sinatra, thin のモジュールを入れる。
 
 ### （開発専用）コマンドラインによる実行
 

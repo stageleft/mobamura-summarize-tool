@@ -1,7 +1,6 @@
 FROM ruby:latest
 
 RUN gem install thin sinatra
-RUN gem install nokogiri
 
 COPY views ./views
 

@@ -1,6 +1,5 @@
 require 'uri'
 require 'net/http'
-require 'nokogiri'
 require 'json'
 
 class GetTripList
