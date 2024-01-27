@@ -1,5 +1,5 @@
-require_relative './get_player_list'
-require_relative './calc_play_count'
+require_relative "#{__dir__}/../api/get_player_list"
+require_relative "#{__dir__}/../api/calc_play_count"
 
 require 'csv'
 

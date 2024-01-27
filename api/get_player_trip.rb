@@ -5,8 +5,8 @@ require 'json'
 
 class GetTripList
     def initialize
-        # @baseuri  = "http://mobajinro.s178.xrea.com/mobajinrolog/player/index.html"
-        @baseuri  = "http://mobajinro.s178.xrea.com//mobajinrolog/api/getPlayer.php"
+        # @baseuri = "http://mobajinro.s178.xrea.com/mobajinrolog/player/index.html"
+        @baseuri = "http://mobajinro.s178.xrea.com/mobajinrolog/api/getPlayer.php"
     end
     # String -> (web access) -> HTML
     def query()

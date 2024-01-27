@@ -68,10 +68,38 @@ rubygems にて、sinatra, thin, nokogiri のモジュールを入れる。
 
 ### （開発専用）コマンドラインによる実行
 
-ruby index.rb some_character_list.json output.csv
+#### result.rb （全体）の実行
+
+ruby test/index.rb data/some_character_list.json output.csv
 
 some_character_list.json output.csv は任意のファイル名。
-output.csv は省略可能（本当に output.csv に出力される。
+output.csv は省略可能（本当に output.csv に出力される）。
+
+#### get_player_trip.rb の実行
+
+```sh
+ruby test/triplist.rb
+```
+
+以下が順に出力される。
+
+1. 非公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/getPlayer.php をコールした応答
+1. data/triplist.json を読み込んだ結果
+1. 上記２つをマージした結果（GetResult すなわち APIで本当に使うリスト）
+
+#### get_player_list.rb の実行
+
+```sh
+ruby test/playerlist.rb data/any-csv-data.json 
+```
+
+指定した any-csv-data.json のキャラ各々について、
+非公開API http://mobajinro.s178.xrea.com/mobajinrolog/result.php をコールした応答の結果全体を、
+JSON形式で出力する。
+
+#### calc_play_count.rb の実行
+
+テストスクリプト未定義。
 
 ### （開発専用）ローカル sinatra による実行
 
