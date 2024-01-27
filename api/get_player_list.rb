@@ -1,15 +1,15 @@
 require 'uri'
 require 'net/http'
-require 'nokogiri'
 require 'json'
 
 class GetPlayerList
     def initialize
-        @baseuri  = "http://mobajinro.s178.xrea.com/mobajinrolog/result.php"
+        # @baseuri = "http://mobajinro.s178.xrea.com/mobajinrolog/result.php" # 現行戦績ツール
+        @baseuri = "http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php" # 戦績API
     end
-    # String -> (web access) -> HTML
+    # String -> (web access) -> JSON
     def queryByCn(character_name)
-        param = URI.encode_www_form({query:"cn:"+character_name, reverse:"on", operator:"OR"});
+        param = URI.encode_www_form({"cn[]":character_name, reverse:"0", operator:"OR"});
         uri   = URI("#{@baseuri}?#{param}")
         res = Net::HTTP.get_response(uri)
 
@@ -19,14 +19,11 @@ class GetPlayerList
     def parseResultQueryByCn(body_string)
         result = [] # [{"HN":hn, "TRIP":trip},...]
 
-        # get table, which has id='resulttable'
-        doc = Nokogiri::HTML(body_string)
-        table = doc.xpath("//*[@id='resulttable']")
-        table.xpath("./tr[@id!='']").each{|tr|
+        body = JSON.parse(body_string)["data"]
+        body.each{|a|
             data = {}
-            # data["CN"] = tr.xpath("./td[@class='td_3']").text
-            data["HN"] = tr.xpath("./td[@class='td_4']").text
-            data["trip"] = tr.xpath("./td[@class='td_5']").text
+            data["HN"] = a["hn"]
+            data["trip"] = a["trip"]
             result.push(data)
         }
 

@@ -1,5 +1,6 @@
-require_relative './get_player_list'
-require_relative './calc_play_count'
+require_relative "#{__dir__}/../api/get_player_list"
+require_relative "#{__dir__}/../api/calc_play_count"
+require_relative "#{__dir__}/../api/get_player_trip"
 
 require 'csv'
 
@@ -14,13 +15,16 @@ end
 
 mjlinstance = GetPlayerList.new
 mjlcounter  = CalcPlayCount.new
+mjltriplist = GetTripList.new
+
+trip_list = mjltriplist.parseResultQueryByTrip(mjltriplist.query())
 
 File.open(ARGV[0]){|f|
     rawdata = f.readlines
     jsondata = rawdata.join('')
     raw_result = mjlinstance.queryByJson(jsondata)  # hash result of {CN=>[{hn=>hn, trip=>trip},...], CN=>...}
 
-    result = mjlcounter.count_play(jsondata, mjlcounter.set_player_name(raw_result))
+    result = mjlcounter.count_play(jsondata, mjlcounter.set_player_name(raw_result, trip_list))
 
     listed_result = mjlcounter.sort_and_add_rank(result);
     CSV.open(outfile, 'w', :force_quotes => true) {|o|

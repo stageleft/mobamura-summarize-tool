@@ -64,14 +64,74 @@ https://idollist.idolmaster-official.jp/search 未登録のアイドル、アイ
 ### 言語、開発プラットフォーム
 
 ruby言語のスクリプトにて、小規模なWebサービスを構築する。スクリプト・WebサービスはDocker CE にてコンテナを作成・提供する。
-rubygems にて、sinatra, thin, nokogiri のモジュールを入れる。
+rubygems にて、sinatra, puma のモジュールを入れる。
 
 ### （開発専用）コマンドラインによる実行
 
-ruby index.rb some_character_list.json output.csv
+#### result.rb （全体）の実行
+
+```sh
+ruby test/index.rb data/some_character_list.json output.csv
+```
 
 some_character_list.json output.csv は任意のファイル名。
-output.csv は省略可能（本当に output.csv に出力される。
+output.csv は省略可能（本当に output.csv に出力される）。
+
+#### get_player_trip.rb の実行
+
+以下のとおり実行する。
+
+```sh
+ruby test/triplist.rb
+```
+
+以下が順に出力される。
+
+1. 非公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/getPlayer.php をコールした応答
+1. data/triplist.json を読み込んだ結果
+1. 上記２つをマージした結果（GetResult すなわち APIで本当に使うリスト）
+
+#### get_player_list.rb の実行
+
+CNを一人指定して実行する場合、以下のとおり実行する。
+
+```sh
+ruby test/player_single.rb "character-name"
+```
+
+指定した character-name のキャラについて、
+公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php をコールした応答の結果をJSON出力する。
+
+上記出力結果を p.json ファイルに落とし込んでいるとして、一次解析の確認には以下のとおり実行する。
+
+```sh
+ruby test/player_single_parse.rb p.json
+```
+
+CN一覧のJSONに則って実行する場合、以下のとおり実行する。
+
+```sh
+ruby test/playerlist.rb data/any-csv-data.json 
+```
+
+指定した any-csv-data.json のキャラ各々について、
+公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php をコールした応答の結果全体をJSON形式で出力する。
+
+#### calc_play_count.rb の実行
+
+※あらかじめ、上記 get_player_list.rb の実行として得られた結果を、ファイルに落としておく。たとえば以下。
+
+```sh
+ruby test/playerlist.rb data/shinycolors.json | jq -c . > test/data.json
+```
+
+同じ data/any-csv-data.json を用いて、以下のとおり実行する。
+
+```sh
+ruby test/summarize.rb data/triplist.json data/shinycolors.json test/data.json
+```
+
+テストスクリプト未定義。
 
 ### （開発専用）ローカル sinatra による実行
 
