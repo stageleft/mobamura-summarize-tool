@@ -1,6 +1,6 @@
 FROM ruby:latest
 
-RUN gem install thin sinatra
+RUN gem install rackup sinatra puma
 
 COPY views ./views
 
