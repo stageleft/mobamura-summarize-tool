@@ -70,12 +70,16 @@ rubygems にて、sinatra, thin, nokogiri のモジュールを入れる。
 
 #### result.rb （全体）の実行
 
+```sh
 ruby test/index.rb data/some_character_list.json output.csv
+```
 
 some_character_list.json output.csv は任意のファイル名。
 output.csv は省略可能（本当に output.csv に出力される）。
 
 #### get_player_trip.rb の実行
+
+以下のとおり実行する。
 
 ```sh
 ruby test/triplist.rb
@@ -89,6 +93,8 @@ ruby test/triplist.rb
 
 #### get_player_list.rb の実行
 
+以下のとおり実行する。
+
 ```sh
 ruby test/playerlist.rb data/any-csv-data.json 
 ```
@@ -98,6 +104,18 @@ ruby test/playerlist.rb data/any-csv-data.json
 JSON形式で出力する。
 
 #### calc_play_count.rb の実行
+
+※あらかじめ、上記 get_player_list.rb の実行として得られた結果を、ファイルに落としておく。たとえば以下。
+
+```sh
+ruby test/playerlist.rb data/shinycolors.json | jq -c . > test/data.json
+```
+
+同じ data/any-csv-data.json を用いて、以下のとおり実行する。
+
+```sh
+ruby test/summarize.rb data/triplist.json data/shinycolors.json test/data.json
+```
 
 テストスクリプト未定義。
 
