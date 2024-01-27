@@ -93,15 +93,29 @@ ruby test/triplist.rb
 
 #### get_player_list.rb の実行
 
-以下のとおり実行する。
+CNを一人指定して実行する場合、以下のとおり実行する。
+
+```sh
+ruby test/player_single.rb "character-name"
+```
+
+指定した character-name のキャラについて、
+公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php をコールした応答の結果をJSON出力する。
+
+上記出力結果を p.json ファイルに落とし込んでいるとして、一次解析の確認には以下のとおり実行する。
+
+```sh
+ruby test/player_single_parse.rb p.json
+```
+
+CN一覧のJSONに則って実行する場合、以下のとおり実行する。
 
 ```sh
 ruby test/playerlist.rb data/any-csv-data.json 
 ```
 
 指定した any-csv-data.json のキャラ各々について、
-非公開API http://mobajinro.s178.xrea.com/mobajinrolog/result.php をコールした応答の結果全体を、
-JSON形式で出力する。
+公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php をコールした応答の結果全体をJSON形式で出力する。
 
 #### calc_play_count.rb の実行
 
