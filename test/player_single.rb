@@ -7,5 +7,5 @@ if ARGV.size != 1 then
 end
 
 mjlinstance = GetPlayerList.new
-raw_result = mjlinstance.queryByCn(ARGV[0])  # hash result of {CN=>[{hn=>hn, trip=>trip},...], CN=>...}
+raw_result = mjlinstance.queryByCn([ARGV[0]])  # hash result of {CN=>[{hn=>hn, trip=>trip},...], CN=>...}
 puts raw_result
