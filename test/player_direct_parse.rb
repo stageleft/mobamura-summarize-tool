@@ -2,7 +2,7 @@ require_relative "#{__dir__}/../api/get_player_list"
 require "json"
 
 if ARGV.size != 1 then
-    puts "usage : ruby playerlist.rb single_parse_result.json"
+    puts "usage : ruby player_direct_parse.rb single_parse_result.json"
     return
 end
 
