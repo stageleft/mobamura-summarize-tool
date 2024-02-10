@@ -77,7 +77,7 @@ ruby test/index.rb data/some_character_list.json output.csv
 some_character_list.json output.csv は任意のファイル名。
 output.csv は省略可能（本当に output.csv に出力される）。
 
-#### get_player_trip.rb の実行
+#### get_trip_list.rb の実行
 
 以下のとおり実行する。
 
@@ -93,20 +93,40 @@ ruby test/triplist.rb
 
 #### get_player_list.rb の実行
 
-CNを一人指定して実行する場合、以下のとおり実行する。
+#### queryByCn メソッド
+
+CNを直接指定して実行する場合、以下のとおり実行する。
 
 ```sh
-ruby test/player_single.rb "character-name"
+ruby test/player_direct.rb "character-name" "character-name" ...
 ```
 
 指定した character-name のキャラについて、
-公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php をコールした応答の結果をJSON出力する。
+[公開API](http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php) をコールした応答の結果をJSON形式で出力する。
 
-上記出力結果を p.json ファイルに落とし込んでいるとして、一次解析の確認には以下のとおり実行する。
+実行例）
 
 ```sh
-ruby test/player_single_parse.rb p.json
+ruby test/player_direct.rb "黒川千秋" "大石泉" > p.json
 ```
+
+#### parseResultQueryByCn メソッド
+
+上記 queryByCn の実行結果を実行例どおりに p.json ファイルに落とし込んでいるとして、一次解析の確認には以下のとおり実行する。
+
+```sh
+ruby test/player_direct_parse.rb p.json
+```
+
+実行例）
+
+```sh
+ruby test/player_direct_parse.rb p.json "黒川千秋"
+ruby test/player_direct_parse.rb p.json "大石泉"
+ruby test/player_direct_parse.rb p.json "高垣楓"
+```
+
+#### queryByJson メソッド
 
 CN一覧のJSONに則って実行する場合、以下のとおり実行する。
 
@@ -115,7 +135,7 @@ ruby test/playerlist.rb data/any-csv-data.json
 ```
 
 指定した any-csv-data.json のキャラ各々について、
-公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php をコールした応答の結果全体をJSON形式で出力する。
+[公開API](http://mobajinro.s178.xrea.com/mobajinrolog/api/searchLog.php) をコールした応答の結果全体をJSON形式で出力する。
 
 #### calc_play_count.rb の実行
 
