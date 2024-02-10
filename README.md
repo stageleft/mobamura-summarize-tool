@@ -77,7 +77,7 @@ ruby test/index.rb data/some_character_list.json output.csv
 some_character_list.json output.csv は任意のファイル名。
 output.csv は省略可能（本当に output.csv に出力される）。
 
-#### get_player_trip.rb の実行
+#### get_trip_list.rb の実行
 
 以下のとおり実行する。
 

@@ -1,4 +1,4 @@
-require_relative "#{__dir__}/../api/get_player_trip"
+require_relative "#{__dir__}/../api/get_trip_list"
 require'json'
 
 if ARGV.size != 0 then

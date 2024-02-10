@@ -1,6 +1,6 @@
 require 'json'
 require_relative './get_player_list'
-require_relative './get_player_trip'
+require_relative './get_trip_list'
 require_relative './calc_play_count'
 
 class GetResult
