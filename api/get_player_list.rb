@@ -25,7 +25,7 @@ class GetPlayerList
 
         body = JSON.parse(body_string)["data"]
         body.each do |a|
-            if a["cn"] == character_name then
+            if a["cn"].strip == character_name then
                 data = {}
                 data["HN"] = a["hn"]
                 data["trip"] = a["trip"]
