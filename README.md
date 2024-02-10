@@ -112,10 +112,18 @@ ruby test/player_direct.rb "黒川千秋" "大石泉" > p.json
 
 #### parseResultQueryByCn メソッド
 
-上記 queryByCn の実行結果を p.json ファイルに落とし込んでいるとして、一次解析の確認には以下のとおり実行する。
+上記 queryByCn の実行結果を実行例どおりに p.json ファイルに落とし込んでいるとして、一次解析の確認には以下のとおり実行する。
 
 ```sh
 ruby test/player_direct_parse.rb p.json
+```
+
+実行例）
+
+```sh
+ruby test/player_direct_parse.rb p.json "黒川千秋"
+ruby test/player_direct_parse.rb p.json "大石泉"
+ruby test/player_direct_parse.rb p.json "高垣楓"
 ```
 
 #### queryByJson メソッド

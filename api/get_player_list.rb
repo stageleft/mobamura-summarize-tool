@@ -14,22 +14,24 @@ class GetPlayerList
         end
         query_param.push ["reverse", "0"]
         query_param.push ["operator", "OR"]
-        uri   = URI("#{@baseuri}?#{URI.encode_www_form(query_param)}")
+        uri = URI("#{@baseuri}?#{URI.encode_www_form(query_param)}")
         res = Net::HTTP.get_response(uri)
 
         res.body if res.is_a?(Net::HTTPSuccess)
     end
     # HTML -> Array of Hash
-    def parseResultQueryByCn(body_string)
+    def parseResultQueryByCn(body_string, character_name)
         result = [] # [{"HN":hn, "TRIP":trip},...]
 
         body = JSON.parse(body_string)["data"]
-        body.each{|a|
-            data = {}
-            data["HN"] = a["hn"]
-            data["trip"] = a["trip"]
-            result.push(data)
-        }
+        body.each do |a|
+            if a["cn"] == character_name then
+                data = {}
+                data["HN"] = a["hn"]
+                data["trip"] = a["trip"]
+                result.push data
+            end
+        end
 
         result
     end
@@ -39,14 +41,20 @@ class GetPlayerList
 
         l = JSON.parse(cnlist)
         if (l["characteres"] != nil) then
-            l["characteres"].each{|e|
-                ret_value[e] = parseResultQueryByCn(queryByCn([e]))
-            };
+            character_data = queryByCn(l["characteres"])
+            l["characteres"].each do |e|
+                ret_value[e] = parseResultQueryByCn(character_data, e)
+            end
         end
         if (l["alias"] != nil) then
-            l["alias"].each{|e|
-                ret_value[e["cn"]] = parseResultQueryByCn(queryByCn([e["cn"]]));
-            };
+            alias_cn_list = []
+            l["alias"].each do |e|
+                alias_cn_list.push e["cn"]
+            end
+            alias_character_data = queryByCn(alias_cn_list)
+            l["alias"].each do |e|
+                ret_value[e["cn"]] = parseResultQueryByCn(alias_character_data, e["cn"]);
+            end
         end
 
         ret_value
