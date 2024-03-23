@@ -1,12 +1,11 @@
 # mobamura-tool
-（自分用）わかめてモバマス村・集計ツール
+
+[（自分用）わかめてモバマス村・集計ツール](https://mobamura-summarize-tool.azurewebsites.net/)
 
 アイドルマスターのキャラクター（以下、アイドル）をCNに用いているプレイヤーの一覧および、
 使用回数を集計したもの。
 
-https://mobamura-summarize-tool.azurewebsites.net/
-
-にアクセスして利用する。
+タイトルのハイパーリンクにアクセスして利用する。
 
 仕様や重要事項などは、上記ツールより、「はじめに、こちらのリンクをお読みください」を参照すること。
 
@@ -17,20 +16,19 @@ https://mobamura-summarize-tool.azurewebsites.net/
 本ツールは、内部データとして、キャラクター名リスト、および、（必要に応じて）別名一覧を持つ。
 表記ルールは schema.json を参照。
 
-記載したデータファイルのチェックは、以下を利用すること。
-https://www.jsonschemavalidator.net/
+記載したデータファイルのチェックは、[JSON Schema validator.](https://www.jsonschemavalidator.net/)を利用すること。
 
-データの種類は以下。原則として、 https://idollist.idolmaster-official.jp/search のアイドルを表示対象とする。
+データの種類は以下。原則として、 [アイマス公式ページ](https://idollist.idolmaster-official.jp/search) のアイドルを表示対象とする。
 
-* デレマス・Cu - https://imascg-slstage.boom-app.wiki/entry/idol-typelist より（モバ村Wikiの参照元と判断）
+* デレマス・Cu - [Boom App Games 【デレステ】タイプ別アイドル一覧](https://imascg-slstage.boom-app.wiki/entry/idol-typelist) より（モバ村Wikiの参照元と判断）
 * デレマス・Co - 同上
 * デレマス・Pa - 同上
 * デレマス・他 - 個別判断
-* ミリマス（オールスターズ１３名、スターリットシーズンのライバルキャラを含む） - https://idollist.idolmaster-official.jp/search より、「THE IDOLM@STER」「ミリオンライブ！」で各々フィルタ。つまりは、ここまで五十音順。その後、「その他」から未登録キャラを順次登録。
-* SideM（DearlyStars２名を含む） - https://idollist.idolmaster-official.jp/search より、「SideM」＆「その他」でフィルタ、。つまりは各カテゴリ五十音順。
+* ミリマス（オールスターズ１３名、スターリットシーズンのライバルキャラを含む） - 上記アイマス公式ページより、「THE IDOLM@STER」「ミリオンライブ！」で各々フィルタ。つまりは、ここまで五十音順。その後、「その他」から未登録キャラを順次登録。
+* SideM（DearlyStars２名を含む） - 上記アイマス公式ページより、「SideM」＆「その他」でフィルタ、。つまりは各カテゴリ五十音順。
 * シャニマス
 
-https://idollist.idolmaster-official.jp/search 未登録のアイドル、アイドル以外のアイマスキャラは、必要に応じて上記の各項目に追加する。（原則、新規の「データの種類」は作成はしない）
+上記アイマス公式ページに未登録のアイドル、アイドル以外のアイマスキャラは、必要に応じて上記の各項目に追加する。（原則、新規の「データの種類」は作成はしない）
 公式クリーチャーの取り扱いも上記に準ずる。シンデレラガールズ関連公式クリーチャーの名簿順は、アイドル→クリーチャーの順とし、クリーチャー内は可能な限りアイドルの名簿順に合わせる。
 同人クリーチャーは取り扱わない。
 声優を含む製作者は取り扱わない。
@@ -87,7 +85,7 @@ ruby test/triplist.rb
 
 以下が順に出力される。
 
-1. 非公開API http://mobajinro.s178.xrea.com/mobajinrolog/api/getPlayer.php をコールした応答
+1. [プレイヤー登録](http://mobajinro.s178.xrea.com/mobajinrolog/player/)で利用の[非公開API](http://mobajinro.s178.xrea.com/mobajinrolog/api/getPlayer.php) をコールした応答
 1. data/triplist.json を読み込んだ結果
 1. 上記２つをマージした結果（GetResult すなわち APIで本当に使うリスト）
 
@@ -160,29 +158,41 @@ ruby test/summarize.rb data/triplist.json data/shinycolors.json test/data.json
 
 ### （開発専用）ローカル sinatra による実行
 
+```sh
 ruby myapp.rb -p 80
+```
 
 ### ローカル docker-CE によるコンテナビルド
 
-service docker start
+```sh
 docker build . -t shogosugano/mobamura-tool:latest
+```
 
 ### （開発専用）ローカル docker-CE による実行
 
+```sh
 docker run --name mobamura-tool -p 80:80 shogosugano/mobamura-tool ; docker rm mobamura-tool
+```
 
+```sh
 docker run -d --name mobamura-tool -p 127.0.0.1:80:80 --restart=always shogosugano/mobamura-tool
 docker stop mobamura-tool && docker rm mobamura-tool
+```
 
 ### （開発専用）ローカル docker-CE でのコンテナ調査
+
+```sh
 docker run --rm -it shogosugano/mobamura-tool bash
+```
 
 ### docker コンテナをサービスデプロイ
 
 * docker hub （プライベートリポジトリ）へのアップロード
 
-docker login -u shogosugano -p <XXX>
+```sh
+docker login -u shogosugano -p 【XXX】
 docker push shogosugano/mobamura-tool:latest
+```
 
 * azure App Service の再起動（docker hub -> azure は設定済み）
 
@@ -191,6 +201,8 @@ docker push shogosugano/mobamura-tool:latest
 アプリのスリープを防ぐため、一定間隔ごとに Health Check Path を呼び出す。
 手元で常時動作する Linux PC を準備し、以下の手順にて5分ごとのアクセスを実装する。
 
+```sh
 $ crontab -e
 $ crontab -l
 */5 * * * * curl 'https://mobamura-summarize-tool.azurewebsites.net/'
+```
