@@ -126,6 +126,11 @@ ruby test/player_direct_parse.rb p.json "大石泉"
 ruby test/player_direct_parse.rb p.json "高垣楓"
 ```
 
+#### queryByCnList メソッド
+
+実行方法なし。
+queryByJson のサブメソッドなので、下記のとおり実行して結果を得る。
+
 #### queryByJson メソッド
 
 CN一覧のJSONに則って実行する場合、以下のとおり実行する。

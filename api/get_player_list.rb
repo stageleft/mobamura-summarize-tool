@@ -35,28 +35,31 @@ class GetPlayerList
 
         result
     end
-    # Hash -> Hash
-    def queryByJson(cnlist)
+    # Array -> Hash
+    def queryByCnList(cnlist_array)
         ret_value = {};
 
-        l = JSON.parse(cnlist)
-        if (l["characteres"] != nil) then
-            character_data = queryByCn(l["characteres"])
-            l["characteres"].each do |e|
+        if (cnlist_array != nil) then
+            character_data = queryByCn(cnlist_array)
+            cnlist_array.each do |e|
                 ret_value[e] = parseResultQueryByCn(character_data, e)
-            end
-        end
-        if (l["alias"] != nil) then
-            alias_cn_list = []
-            l["alias"].each do |e|
-                alias_cn_list.push e["cn"]
-            end
-            alias_character_data = queryByCn(alias_cn_list)
-            l["alias"].each do |e|
-                ret_value[e["cn"]] = parseResultQueryByCn(alias_character_data, e["cn"]);
             end
         end
 
         ret_value
+    end
+    # Hash -> Hash
+    def queryByJson(cnlist)
+        cnlist_array = [];
+
+        l = JSON.parse(cnlist)
+        l["characteres"].each do |e|
+            cnlist_array.push e
+        end
+        l["alias"].each do |e|
+            cnlist_array.push e["cn"]
+        end
+
+        queryByCnList(cnlist_array)
     end
 end
