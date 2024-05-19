@@ -9,25 +9,16 @@
 
 仕様や重要事項などは、上記ツールより、「はじめに、こちらのリンクをお読みください」を参照すること。
 
-## 開発・運用にかかる参考情報
+## 設計情報
+
+仕様にかかる記載は、説明・免責事項として、 views/readme.erb に記載する。
 
 ### キャラクター名リスト・データ表記法
 
 本ツールは、内部データとして、キャラクター名リスト、および、（必要に応じて）別名一覧を持つ。
 表記ルールは schema.json を参照。
 
-記載したデータファイルのチェックは、[JSON Schema validator.](https://www.jsonschemavalidator.net/)を利用すること。
-
-データの種類は以下。原則として、 [アイマス公式ページ](https://idollist.idolmaster-official.jp/search) のアイドルを表示対象とする。
-
-* デレマス・Cu - [Boom App Games 【デレステ】タイプ別アイドル一覧](https://imascg-slstage.boom-app.wiki/entry/idol-typelist) より（モバ村Wikiの参照元と判断）
-* デレマス・Co - 同上
-* デレマス・Pa - 同上
-* デレマス・他 - 個別判断。デレマス・デレステのゲーム内に採用された外部コラボキャラはここに含む。
-* ミリマス（オールスターズ１３名、スターリットシーズンのライバルキャラを含む） - 上記アイマス公式ページより、「THE IDOLM@STER」「ミリオンライブ！」で各々フィルタ。つまりは、ここまで五十音順。その後、「その他」から未登録キャラを順次登録。ミリマス関連ゲーム内に採用されたコラボキャラ含む。
-* SideM（DearlyStars２名を含む） - 上記アイマス公式ページより、「SideM」＆「その他」でフィルタ、。つまりは各カテゴリ五十音順。sideM関連ゲーム内に採用されたコラボキャラ含む。
-* シャニマス。シャニマス関連ゲーム内に採用されたコラボキャラ含む。
-
+データの種類は、原則として、 [アイマス公式ページ](https://idollist.idolmaster-official.jp/search) のアイドルを表示対象とする。
 上記アイマス公式ページに未登録のアイドル、アイドル以外のアイマスキャラは、必要に応じて上記の各項目に追加する。（原則、新規の「データの種類」は作成はしない）
 公式クリーチャーの取り扱いも上記に準ずる。シンデレラガールズ関連公式クリーチャーの名簿順は、アイドル→クリーチャーの順とし、クリーチャー内は可能な限りアイドルの名簿順に合わせる。
 同人クリーチャーは取り扱わない。
@@ -64,7 +55,9 @@
 ruby言語のスクリプトにて、小規模なWebサービスを構築する。スクリプト・WebサービスはDocker CE にてコンテナを作成・提供する。
 rubygems にて、sinatra, puma のモジュールを入れる。
 
-### （開発専用）コマンドラインによる実行
+## 開発にかかる参考情報
+
+### コマンドラインによる実行
 
 #### result.rb （全体）の実行
 
@@ -156,7 +149,7 @@ ruby test/summarize.rb data/triplist.json data/shinycolors.json test/data.json
 
 テストスクリプト未定義。
 
-### （開発専用）ローカル sinatra による実行
+### ローカル sinatra による実行
 
 ```sh
 ruby myapp.rb -p 80
@@ -168,7 +161,7 @@ ruby myapp.rb -p 80
 docker build . -t shogosugano/mobamura-tool:latest
 ```
 
-### （開発専用）ローカル docker-CE による実行
+### ローカル docker-CE による実行
 
 ```sh
 docker run --name mobamura-tool -p 80:80 shogosugano/mobamura-tool ; docker rm mobamura-tool
@@ -179,30 +172,27 @@ docker run -d --name mobamura-tool -p 127.0.0.1:80:80 --restart=always shogosuga
 docker stop mobamura-tool && docker rm mobamura-tool
 ```
 
-### （開発専用）ローカル docker-CE でのコンテナ調査
+### ローカル docker-CE でのコンテナ調査
 
 ```sh
 docker run --rm -it shogosugano/mobamura-tool bash
 ```
 
-### docker コンテナをサービスデプロイ
+## 運用にかかる参考情報
 
-* docker hub （プライベートリポジトリ）へのアップロード
-
-```sh
-docker login -u shogosugano -p 【XXX】
-docker push shogosugano/mobamura-tool:latest
-```
-
-* azure App Service の再起動（docker hub -> azure は設定済み）
+* [docker hub リポジトリ](https://hub.docker.com/repository/docker/shogosugano/mobamura-tool/general) （プライベートリポジトリ）へのアップロードは、Github Action により行う。
+* azure App Service の再起動（docker hub -> azure は設定済み）は自動での実施を待つ。
 
 ### エンドポイントへの定期アクセスの実装
 
 アプリのスリープを防ぐため、一定間隔ごとに Health Check Path を呼び出す。
-手元で常時動作する Linux PC を準備し、以下の手順にて5分ごとのアクセスを実装する。
+手元で常時動作する Linux PC を準備し、以下の手順にて、水曜日以外5分ごとのアクセスを実装する。
 
 ```sh
 $ crontab -e
 $ crontab -l
-*/5 * * * * curl 'https://mobamura-summarize-tool.azurewebsites.net/'
+*/5 * * * 0-2,4-6 curl 'https://mobamura-summarize-tool.azurewebsites.net/'
 ```
+
+使わないと想定される水曜日をアクセス対象外の日とすることで、アプリをあえてスリープさせ、
+Azure App Service 更新のための再起動タイミングを図る。
