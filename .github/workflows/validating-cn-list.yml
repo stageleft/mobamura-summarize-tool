@@ -1,0 +1,28 @@
+name: json-validate 
+# character name 一覧のJSONファイルをValidateする
+# 参考： https://github.com/marketplace/actions/json-yaml-validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  json-yaml-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        # using action https://github.com/actions/checkout
+        uses: actions/checkout@v4
+
+      - name: json-yaml-validate
+        id: json-yaml-validate
+        uses: GrantBirki/json-yaml-validate@v2.7.1
+        with:
+            json_schema: ./schema.json
+            base_dir: ./data
+            exclude_file: ./data/triplist.json
