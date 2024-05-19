@@ -20,9 +20,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: json-yaml-validate
+        # using action https://github.com/GrantBirki/json-yaml-validate
         id: json-yaml-validate
         uses: GrantBirki/json-yaml-validate@v2.7.1
         with:
             json_schema: ./schema.json
             base_dir: ./data
-            exclude_file: ./data/triplist.json
+            exclude_file: ./schema-exclude.txt
